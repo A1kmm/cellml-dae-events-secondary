@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE article SYSTEM "-//OASIS//DTD DocBook XML">
+<section lang="en">
+  <title>Requirements for compliant models</title>
+  <orderedlist>
+    <listitem>
+      <para>
+        Each model MUST contain exactly one (but MUST NOT contain more than one) set of connected variables such that:
+        <orderedlist>
+          <listitem><para>The set contains at least one variable, and,</para></listitem>
+          <listitem><para>At least one of the variables is named in a ci element information item that is inside a bvar element information item, that is, in turn, inside an apply element information item, and the first child element information item of the apply element information item in the MathML namespace is a diff element information item.</para></listitem>
+        </orderedlist>
+        In this specification, the term `bound variable' refers to any variable that is a member of this set of connected variables.
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        For every variable element in a model, one of the following MUST apply:
+        <orderedlist>
+          <listitem><para>The type attribute is absent, causing the type of the variable to be real by default, or,</para></listitem>
+          <listitem><para>The type attribute has value real, or,</para></listitem>
+          <listitem><para>The type attribute has value boolean.</para></listitem>
+        </orderedlist>
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        Every MathML element child of a MathML math element child of a component element MUST be in one of the following forms:
+        <orderedlist>
+          <listitem><para>A MathML apply element with three arguments, with the first argument being a MathML `or' element, the second being a boolean expression (as defined below), and the third being a valid equation (as defined below), or,</para></listitem>
+          <listitem><para>A valid equation (as defined below).</para></listitem>
+        </orderedlist>
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        A valid equation is defined as a MathML apply element with three children, where the first MathML argument is a MathML `eq' element, and either:
+        <orderedlist>
+          <listitem><para>the second and third arguments are both valid real expressions, as defined below, or,</para></listitem>
+          <listitem><para>the second and third arguments are both valid boolean expressions, as defined below.</para></listitem>
+        </orderedlist>
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        A valid real expression is defined as any expression that meets at least one of the following criteria:
+        <orderedlist>
+          <listitem><para>a MathML ci element referencing a variable of type real in the same component, or,</para></listitem>
+          <listitem><para>a MathML cn element, with the type attribute either absent or taking one of the following values: "e-notation", "integer", "rational" or "real", or,</para></listitem>
+          <listitem><para>a MathML piecewise element; one or more case element children can be present; each case element MUST contain a valid real expression child followed by a valid boolean expression child; each boolean expression MUST be mutually exclusive; an otherwise element MAY be present; if present, the otherwise element MUST contain a valid real expression, or,</para></listitem>
+          <listitem><para>a MathML exponentiale element, or,</para></listitem>
+          <listitem><para>a MathML pi element, or,</para></listitem>
+          <listitem><para>a MathML eulergamma element, or,</para></listitem>
+          <listitem><para>a MathML apply element meeting one of the following constraints, with no qualifier children except where explicitly allowed:
+            <orderedlist>
+              <listitem><para>The apply element has three arguments; the first is the MathML quotient element, and the next two are valid real expressions; the third argument is always non-zero, or,</para></listitem>
+              <listitem><para>The apply element has two arguments; the first is the MathML factorial element, and the last is a valid real expression, or,</para></listitem>
+              <listitem><para>The apply element has three arguments; the first is the MathML divide element, and the next two are valid real expressions; the third argument is always non-zero, or,</para></listitem>
+              <listitem><para>The apply element has three or more arguments; the first is the MathML max element or the MathML min element, and the remaining arguments are valid real expressions, or,</para></listitem>
+              <listitem><para>The apply element has three arguments; the first is the MathML minus element, and the remaining two arguments are valid real expressions, or,</para></listitem>
+              <listitem><para>The apply element has three or more arguments; the first is the MathML plus element, and the remaining arguments are valid real expressions, or,</para></listitem>
+              <listitem><para>The apply element has three arguments; the first is the MathML power element, and the remaining arguments are valid real expressions; the expression must be defined so that if the second argument has a negative value, the third argument shall have a value that is an integer, or,</para></listitem>
+              <listitem><para>The apply element has three arguments; the first is the MathML rem element, and the next two are valid real expressions; the third argument is always non-zero, or,</para></listitem>
+              <listitem><para>The apply element has three or more arguments; the first is the MathML times element, and the remaining arguments are valid real expressions, or,</para></listitem>
+              <listitem><para>The apply element has two arguments; the first is the MathML root element, and the last argument is a valid real expression; a degree qualifier containing a valid real expression MAY be present, or MAY be absent, relying on the MathML default of 2; the expression in the argument MUST be always non-zero, or,</para></listitem>
+              <listitem><para>The apply element has three or more arguments; the first is the MathML gcd element or the MathML lcm element, and the remaining arguments are valid real expressions; all of the real expression arguments MUST evaluate to integers, or,</para></listitem>
+              <listitem><para>The apply element has two arguments; the first is the MathML abs element or the MathML floor element or the MathML ceiling element, and the last argument is a valid real expression, or,</para></listitem>
+              <listitem><para>TODO: sort out locally bound variables first. The apply element has two arguments; the first is the MathML int element, and the last argument is a valid real expression, or,</para></listitem>
+              <listitem><para>The apply element has two arguments; the last is a valid real expression, and the first argument is one of the following:
+                <orderedlist>
+                  <listitem><para>A MathML sin element, or,</para></listitem>
+                  <listitem><para>A MathML cos element, or,</para></listitem>
+                  <listitem><para>A MathML tan element; the value of the real expression must never be an odd multiple of pi/2, or,</para></listitem>
+                  <listitem><para>A MathML sec element; the value of the real expression must never be an odd multiple of pi/2, or,</para></listitem>
+                  <listitem><para>A MathML csc element; the value of the real expression must never be a multiple of pi, or,</para></listitem>
+                  <listitem><para>A MathML cot element; the value of the real expression must never be a multiple of pi, or,</para></listitem>
+                  <listitem><para>A MathML sinh element, or,</para></listitem>
+                  <listitem><para>A MathML cosh element, or,</para></listitem>
+                  <listitem><para>A MathML tanh element, or,</para></listitem>
+                  <listitem><para>A MathML sech element, or,</para></listitem>
+                  <listitem><para>A MathML csch element; the value of the real expression must never be zero, or,</para></listitem>
+                  <listitem><para>A MathML tanh element; the value of the real expression must never be zero, or,</para></listitem>
+                  <listitem><para>A MathML arcsin element; the value of the real expression must always be in the interval [-1,1], or,</para></listitem>
+                  <listitem><para>A MathML arccos element; the value of the real expression must always be in the interval [-1,1], or,</para></listitem>
+                  <listitem><para>A MathML arctan element, or,</para></listitem>
+                  <listitem><para>A MathML arcsec element; the value of the real expression must never be in the interval (-1,1) and must never be zero, or,</para></listitem>
+                  <listitem><para>A MathML arccsc element; the value of the real expression must never be in the interval (-1,1) and must never be zero, or,</para></listitem>
+                  <listitem><para>A MathML arccot element; the value of the real expression must always be in the interval (-1,1) and must never be zero, or,</para></listitem>
+                  <listitem><para>A MathML arcsinh element; the value of the real expression must never be zero, or,</para></listitem>
+                  <listitem><para>A MathML arccosh element; the value of the real expression must always be greater than zero, or,</para></listitem>
+                  <listitem><para>A MathML arctanh element; the value of the real expression must always be in the interval (-1,1), or,</para></listitem>
+                  <listitem><para>A MathML arcsech element; the value of the real expression must always be greater than or equal to one, or,</para></listitem>
+                  <listitem><para>A MathML arccsch element; the value of the real expression must never be zero, or,</para></listitem>
+                  <listitem><para>A MathML arccoth element; the value of the real expression must never be in [-1,1], or,</para></listitem>
+                  <listitem><para>A MathML log element; the value of the real expression must always be non-zero; a logBase qualifier containing a real expression MAY optionally be present, or,</para></listitem>
+                  <listitem><para>A MathML ln element; the value of the real expression must always be non-zero, or,</para></listitem>
+                  <listitem><para>A MathML exp element.</para></listitem>
+                </orderedlist>
+              </para></listitem>
+            </orderedlist>
+          </para></listitem>
+        </orderedlist>
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        A valid boolean expression is defined as any expression that meets at least one of the following criteria:
+        <orderedlist>
+          <listitem><para>a MathML ci element referencing a variable of type boolean in the same component, or,</para></listitem>
+          <listitem><para>a MathML true element or a MathML false element, or,</para></listitem>
+          <listitem><para>a MathML apply element meeting one of the following constraints, with no qualifier children except where explicitly allowed:
+            <orderedlist>
+              <listitem><para>The apply element has three or more arguments; the </para></listitem>
+            </orderedlist>
+          </para></listitem>
+        </orderedlist>
+      </para>
+    </listitem>
+  </orderedlist>
+</section>

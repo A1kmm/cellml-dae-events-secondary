@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE article SYSTEM "-//OASIS//DTD DocBook XML">
+<abstract>
+  <para>
+This document is an unofficial working draft. The below describes the intended
+status of the specification, and not the current status right now.
+  </para>
+  <para>
+This document is the CellML Secondary Specification for Differential-Algebraic Equations with Events. It provides additional constraints on top of those specified in the CellML 1.2 specification; to be compliant with this secondary specification, processing software MUST be able to correctly process every model that is compliant with this specification.
+  </para>
+  <para>
+This is the <emphasis>normative</emphasis> specification of CellML. It is intended to
+provide the minimum amount of information needed to accurately describe the class of models allowed by this secondary specification.
+  </para>
+</abstract>

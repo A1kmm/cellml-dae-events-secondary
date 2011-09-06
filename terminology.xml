@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE article SYSTEM "-//OASIS//DTD DocBook XML">
+<section lang="en">
+  <title>Terminology</title>
+  <para>
+All terms defined in the CellML Core Specification version 1.2 also apply 
+  </para>
+  <para>
+The key phrase "information item", as well as any specific type of information
+item such as an "element information item", are to be interpreted as described
+in <xref linkend="XML-INFOSET"/>.
+  </para>
+  <glosslist>
+    <glossentry>
+      <glossterm>CellML Infoset</glossterm>
+      <glossdef>
+        <para>
+An XML Information Set containing a hierarchy of information items
+conforming to the rules described in this document.
+        </para>
+      </glossdef>
+    </glossentry>
+
+  <orderedlist>
+    <listitem>
+      <para>
+        Each model MUST contain exactly one set of one or more connected variables such that at 
+      </para>
+    </listitem>
+  </orderedlist>
+</section>
