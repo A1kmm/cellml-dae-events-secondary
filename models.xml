@@ -5,24 +5,33 @@
   <orderedlist>
     <listitem>
       <para>
+        Compliant models MUST NOT contain any variables, constants, or expressions unless the type is either real or boolean.
+      </para>
+    </listitem>
+    <listitem>
+      <para>
         Each model MUST contain exactly one (but MUST NOT contain more than one) set of connected variables such that:
         <orderedlist>
           <listitem><para>The set contains at least one variable, and,</para></listitem>
-          <listitem><para>At least one of the variables is named in a ci element information item that is inside a bvar element information item, that is, in turn, inside an apply element information item, and the first child element information item of the apply element information item in the MathML namespace is a diff element information item.</para></listitem>
+          <listitem><para>At least one of the variables is named in a ci element information item that is inside a bvar element information item inside a bind element information item, where the the first child element information item of the bind element information item in the MathML namespace is a diff element information item.</para></listitem>
         </orderedlist>
         In this specification, the term `bound variable' refers to any variable that is a member of this set of connected variables.
       </para>
     </listitem>
     <listitem>
       <para>
-        For every variable element in a model, one of the following MUST apply:
+        Every child of a math element information item in the MathML namespace must comply with one of following rules:
         <orderedlist>
-          <listitem><para>The type attribute is absent, causing the type of the variable to be real by default, or,</para></listitem>
-          <listitem><para>The type attribute has value real, or,</para></listitem>
-          <listitem><para>The type attribute has value boolean.</para></listitem>
+          <listitem>
+            <para>The rules described in section ref for equalities</para>
+          </listitem>
+          <listitem>
+            <para>The rules described in section ref for toplevel piecewise statements</para>
+          </listitem>
         </orderedlist>
       </para>
     </listitem>
+
     <listitem>
       <para>
         Every MathML element child of a MathML math element child of a component element MUST be in one of the following forms:
