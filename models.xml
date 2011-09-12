@@ -16,6 +16,12 @@
         The rules provided in this specification are against the MathML 3 Strict form; the rules in this document apply to content MathML after all possible transformations to strict MathML defined in the MathML 3 specification have been applied.
       </para>
     </listitem>
+
+    <listitem>
+      <para>
+        Except where stated otherwise, references to variables in this specification refer to model variables, and not to individual variable element information items.
+      </para>
+    </listitem>
   </orderedlist>
 </section>
 
@@ -29,23 +35,13 @@
     </listitem>
     <listitem>
       <para>
-        Each model MUST contain exactly one (but MUST NOT contain more than one) set of connected variables such that:
-        <orderedlist>
-          <listitem><para>The set contains at least one variable, and,</para></listitem>
-          <listitem><para>At least one of the variables is named in a ci element information item that is inside a bvar element information item inside a bind element information item, where the the first child element information item of the bind element information item in the MathML namespace is a diff element information item.</para></listitem>
-        </orderedlist>
-        In this specification, the term `bound variable' refers to any variable that is a member of this set of connected variables.
-      </para>
-    </listitem>
-    <listitem>
-      <para>
         Every child of a math element information item in the MathML namespace must comply with one of following rules:
         <orderedlist>
           <listitem>
             <para>The child of the MathML math element information item is an apply element information item, and the first MathML element information item child of that apply element is a symbol from the relation1 content dictionary.</para>
           </listitem>
           <listitem>
-            <para>The rules described in <link linkend="toplevel-piecewise-rules"/> where a child of the MathML math element is an apply element information item, and the first MathML element information child of that apply element is the piecewise symbol from the piece1 content dictionary.</para>
+            <para>The rules described in <xref linkend="toplevel-piecewise-rules"/>, where a child of the MathML math element is an apply element information item, and the first MathML element information child of that apply element is the piecewise symbol from the piece1 content dictionary.</para>
           </listitem>
         </orderedlist>
       </para>
@@ -55,17 +51,17 @@
         All csymbol elements in the model must either have a definitionURL attribute with value
         "http://www.cellml.org/cellml/1.2#evaluatedAt", or have a cd attribute and text child
         value matching a symbol on either the Generally Available List given in
-        <link linkend="generalList"/> or the Specific Uses list given in
-        <link linkend="specificList"/>. In this section, rules about the type of the result of an application
+        <xref linkend="generalList"/> or the Specific Uses list given in
+        <xref linkend="specificList"/>. In this section, rules about the type of the result of an application
         also apply to type of a symbol that takes no arguments.
       </para>
     </listitem>
     <listitem>
       <para>
-        Symbols defined in <link linkend="generalList"/> MAY be used anywhere where the use is not inconsistent with other rules in this specification or the primary specification.
+        Symbols defined in <xref linkend="generalList"/> MAY be used anywhere where the use is not inconsistent with other rules in this specification or the primary specification.
       </para>
       <para>
-        Symbols defined in <link linkend="specificList"/> MUST NOT be used anywhere except where specifically allowed in this specification.
+        Symbols defined in <xref linkend="specificList"/> MUST NOT be used anywhere except where specifically allowed in this specification.
       </para>
     </listitem>
     <listitem>
@@ -80,12 +76,12 @@
     </listitem>
     <listitem>
       <para>
-        Where an OpenMath symbol takes an argument of an STS type given in <link linkend="realequiv"/>, the CellML type of that argument SHALL be real.
+        Where an OpenMath symbol takes an argument of an STS type given in <xref linkend="realequiv"/>, the CellML type of that argument MUST be real.
       </para>
     </listitem>
     <listitem>
       <para>
-        Where the application of an OpenMath symbol produces a result of an STS type given in <link linkend="realequiv"/>, the CellML type of that result SHALL be real.
+        Where the application of an OpenMath symbol produces a result of an STS type given in <xref linkend="realequiv"/>, the CellML type of that result SHALL be real.
       </para>
     </listitem>
     <listitem>
@@ -116,12 +112,12 @@
 
     <listitem>
       <para>
-        Let n be the number of variables of type real in the model. For a model to be valid under this secondary specification, it MUST be possible to divide up the variables of type real into one independent variable and <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>n</mml:mi><mml:mo>-</mml:mo><mml:mn>1</mml:mn></mml:mrow></mml:math> dependent variables. There must be precisely <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>n</mml:mi><mml:mo>-</mml:mo><mml:mn>1</mml:mn></mml:mrow></mml:math> real constraint equations (as defined in section <link linkend="real-constriant-equations"/> that do not contain initial value expressions (as defined later in this section).
+        Let n be the number of variables of type real in the model. For a model to be valid under this secondary specification, it MUST be possible to divide up the variables of type real into one independent variable and <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>n</mml:mi><mml:mo>-</mml:mo><mml:mn>1</mml:mn></mml:mrow></mml:math> dependent variables. There must be precisely <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>n</mml:mi><mml:mo>-</mml:mo><mml:mn>1</mml:mn></mml:mrow></mml:math> real constraint equations (as defined in section <xref linkend="real-constriant-equations"/> that do not contain initial value expressions (as defined later in this section).
       </para>
     </listitem>
     <listitem>
       <para>
-        There MUST NOT be any subset of the real constraint equations that do not contain initial value expressions of size greater than some i but which collectively only involve i real variables.
+        There MUST NOT be any subset of the real constraint equations that do not contain initial value expressions, of size greater than some i, but which collectively only involve i real variables.
       </para>
     </listitem>
     <listitem>
@@ -150,19 +146,13 @@
 
     <listitem>
       <para>
-        The nthdiff symbol in content dictionary calculus1 MAY be applied to a first argument of type real, and a second argument of type real-real-lambda, giving a value of type real-real-lambda-applyonly. The first argument MUST be defined using the Low Complexity Subset defined in <link linkend="low-complexity-subset"/>, and MUST have a value that is a positive integer.
+        The nthdiff symbol in content dictionary calculus1 MAY be applied to a first argument of type real, and a second argument of type real-real-lambda, giving a value of type real-real-lambda-applyonly. The first argument MUST be defined using the Low Complexity Subset defined in <xref linkend="low-complexity-subset"/>, and MUST have a value that is a positive integer.
       </para>
     </listitem>
 
     <listitem>
       <para>
-        Values of type real-real-lambda-applyonly MUST NOT be used anywhere in the model (not as a variable type, a constant type, or as the inferred type of expressions) except where specifically allowed in this specification.
-      </para>
-    </listitem>
-
-    <listitem>
-      <para>
-        Values of type real-real-lambda-applyonly MUST only occur as the operator to a MathML apply expression, and the second argument MUST be a ci reference to the independent variable.
+        Values of type real-real-lambda-applyonly MUST only occur as the operator to a MathML apply expression, and the second argument MUST be a ci reference to the independent variable. Such an expression (application of the independent variable to the diff or nthdiff of a lambda) is referred to as a derivative in this specification.
       </para>
     </listitem>
 
@@ -197,7 +187,25 @@
 
     <listitem>
       <para>
-        
+        Let n be the number of real variables in the model, and <math xmlns='http://www.w3.org/1998/Math/MathML' display='inline'><msub><mi>k</mi> <mi>i</mi></msub></math> be the highest degree of differentiation found in the model for the ith real variable (<math xmlns='http://www.w3.org/1998/Math/MathML' display='inline'><msub><mi>k</mi> <mi>i</mi></msub><mo>=</mo><mn>0</mn></math> if no derivatives are found). Let <math xmlns='http://www.w3.org/1998/Math/MathML' display='inline'><msub><mi>d</mi> <mn>0</mn></msub><mo>=</mo><msubsup><mo lspace="thinmathspace" rspace="thinmathspace">&Sum;</mo> <mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow> <mi>n</mi></msubsup><mrow><msub><mi>k</mi> <mi>i</mi></msub></mrow></math>. Then the total number of real constraint equations in the model MUST equal <math xmlns='http://www.w3.org/1998/Math/MathML' display='inline'><msub><mi>d</mi> <mn>0</mn></msub></math>.
+      </para>
+    </listitem>
+
+    <listitem>
+      <para>
+        Let t be the independent variable, <math xmlns='http://www.w3.org/1998/Math/MathML' display='inline'><msub><mi>v</mi> <mi>i</mi></msub></math> be the ith variable, and <math xmlns='http://www.w3.org/1998/Math/MathML' display='inline'><mi>S</mi><mo>=</mo><mrow><msub><mi>v</mi> <mn>1</mn></msub><mo>,</mo><mfrac><mrow><msub><mi>dv</mi> <mn>1</mn></msub></mrow><mi>dt</mi></mfrac><mo>,</mo><mfrac><mrow><msup><mi>d</mi> <mn>2</mn></msup><msub><mi>v</mi> <mn>1</mn></msub></mrow><mrow><msup><mi>dt</mi> <mn>2</mn></msup></mrow></mfrac><mo>,</mo><mo>.</mo><mo>.</mo><mo>.</mo><mo>,</mo><mfrac><mrow><msup><mi>d</mi> <mrow><msub><mi>k</mi> <mn>1</mn></msub></mrow></msup><msub><mi>v</mi> <mn>1</mn></msub></mrow><mrow><msup><mi>dt</mi> <mrow><msub><mi>k</mi> <mn>1</mn></msub></mrow></msup></mrow></mfrac><mo>,</mo><mo>.</mo><mo>.</mo><mo>.</mo><mo>,</mo><msub><mi>v</mi> <mi>n</mi></msub><mo>,</mo><mfrac><mrow><msub><mi>dv</mi> <mi>n</mi></msub></mrow><mi>dt</mi></mfrac><mo>,</mo><mo>.</mo><mo>.</mo><mo>.</mo><mo>,</mo><mfrac><mrow><msup><mi>d</mi> <mrow><msub><mi>k</mi> <mi>n</mi></msub></mrow></msup><msub><mi>v</mi> <mi>n</mi></msub></mrow><mrow><msup><mi>dt</mi> <mrow><msub><mi>k</mi> <mi>n</mi></msub></mrow></msup></mrow></mfrac></mrow></math>. There MUST NOT be any subset of the real constraint equations, of size greater than some i, but which collectively only involve i members of S.
+      </para>
+    </listitem>
+
+    <listitem>
+      <para>
+        For every boolean variable in the model, there MUST be an eq relation with a reference to the boolean variable as the first argument, and an arbitrary boolean expression as the second argument.
+      </para>
+    </listitem>
+
+    <listitem>
+      <para>
+        There MUST be an ordering of boolean variables such that the expression for each boolean variable only uses boolean variables earlier in the ordering.
       </para>
     </listitem>
   </orderedlist>
@@ -264,33 +272,41 @@
           Symbols from the calculus1 content dictionary MUST NOT be used within a low complexity subset expression.
         </para>
       </listitem>
+      <listitem>
+        <para>
+          The evaluatedAt symbol MUST NOT be used in a low complexity subset expression.
+        </para>
+      </listitem>
     </orderedlist>
+  </para>
 </section>
 
 <section id="toplevel-piecewise-rules">
   <title>Rules for top-level piecewise expressions</title>
-  <listitem>
-    <para>
-      Each top-level piecewise expression MUST have exactly two piece-boolean arguments.
-    </para>
-  </listitem>
-  <listitem>
-    <para>
-      Within the rules in this section, the value of a piece SHALL mean the only argument of an application of otherwise from the piece1 content dictionary, and the first argument of an application of piece from the piece1 content dictionary.
-    </para>
-  </listitem>
-  <listitem>
-    <para>
-      The value of each piece MUST consist of an application of the eq symbol from content dictionary relation1.
-    </para>
-  </listitem>
-  <listitem>
-    <para>
-      One piece MUST contain one or more instances of a derivative of exactly one dependent variable, such that the derivative (or any derivative of the same variable to a higher degree) does not appear anywhere else in the model (other than as a descendant of an evaluatedAt application), and the derivative to one degree less (the dependent variable itself in the case of first-order differentiation) appears in the other piece.
-    </para>
-  </listitem>
+  <orderedlist>
+    <listitem>
+      <para>
+        Each top-level piecewise expression MUST have exactly two piece-boolean arguments.
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        Within the rules in this section, the value of a piece SHALL mean the only argument of an application of otherwise from the piece1 content dictionary, and the first argument of an application of piece from the piece1 content dictionary.
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        The value of each piece MUST consist of an application of the eq symbol from content dictionary relation1.
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        One piece MUST contain one or more instances of a derivative of exactly one dependent variable, such that the derivative (or any derivative of the same variable to a higher degree) does not appear anywhere else in the model (other than as a descendant of an evaluatedAt application), and the derivative to one degree less (the dependent variable itself in the case of first-order differentiation) appears in the other piece.
+      </para>
+    </listitem>
+  </orderedlist>
 </section>
-
+  
 <section id="generalList">
   <title>Generally Available List</title>
   <para>
@@ -309,13 +325,16 @@
 </section>
 
 <section id="specificList">
-<title>Specific Uses List</title>
-The Specific Uses List of symbols is enumerated below, by naming the content dictionary, and then specifying which of symbols in the content dictionary that are on the Specific Uses List:
-        <orderedlist>
-          <listitem><para>limit1 - the symbols limit and below</para></listitem>
-          <listitem><para>calculus1 - the symbols defint, diff, and nthdiff</para></listitem>
-          <listitem><para>interval1 - the symbol oriented_interval</para></listitem>
-          <listitem><para>fns1 - the symbol lambda</para></listitem>
-        </orderedlist>
+  <title>Specific Uses List</title>
+  <para>
+    The Specific Uses List of symbols is enumerated below, by naming the content dictionary, and then specifying which of symbols in the content dictionary that are on the Specific Uses List:
+    <orderedlist>
+      <listitem><para>limit1 - the symbols limit and below</para></listitem>
+      <listitem><para>calculus1 - the symbols defint, diff, and nthdiff</para></listitem>
+      <listitem><para>interval1 - the symbol oriented_interval</para></listitem>
+      <listitem><para>fns1 - the symbol lambda</para></listitem>
+    </orderedlist>
+  </para>
 </section>
+
 </section>

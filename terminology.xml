@@ -20,12 +20,5 @@ conforming to the rules described in this document.
         </para>
       </glossdef>
     </glossentry>
-
-  <orderedlist>
-    <listitem>
-      <para>
-        Each model MUST contain exactly one set of one or more connected variables such that at 
-      </para>
-    </listitem>
-  </orderedlist>
+  </glosslist>
 </section>
