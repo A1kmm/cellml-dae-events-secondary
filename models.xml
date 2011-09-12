@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<!DOCTYPE article SYSTEM "-//OASIS//DTD DocBook XML">
+<!DOCTYPE article SYSTEM "-//OASIS//DTD DocBook XML" [
+<!ENTITY Sum              "&#x02211;" >
+]>
 <section lang="en">
   <title>CellML Secondary Specification - DAEs with Optional Resets</title>
 
@@ -117,7 +119,7 @@
     </listitem>
     <listitem>
       <para>
-        There MUST NOT be any subset of the real constraint equations that do not contain initial value expressions, of size greater than some i, but which collectively only involve i real variables.
+        There MUST NOT be any subset of the real constraint equations that do not contain initial value expressions, of size greater than some i, but which collectively only involve i real variables (not counting references to variables where the reference occurs inside infinitesimally delayed expressions).
       </para>
     </listitem>
     <listitem>
@@ -169,7 +171,7 @@
     </listitem>
     <listitem>
       <para>
-        The evaluatedAt operator MAY be applied as the child of a lambda element, where the first argument of the evaluatedAt operator is the independent variable, and the second is an application of the plus operator from arith1 with the first argument to plus being the independent variable, and the second being bound variable of the lambda element; however, the lambda application MUST be the third argument of a limit operator from limit1, with the first argument to the limit being a constant zero, and the second argument being the symbol below from limit1.
+        The evaluatedAt operator MAY be applied as the child of a lambda element, where the first argument of the evaluatedAt operator is the independent variable, and the second is an application of the plus operator from arith1 with the first argument to plus being the independent variable, and the second being bound variable of the lambda element; however, the lambda application MUST be the third argument of a limit operator from limit1, with the first argument to the limit being a constant zero, and the second argument being the symbol below from limit1. Such expressions SHALL be referred to as infinitesimally delayed expressions within this specification.
       </para>
     </listitem>
 
@@ -193,7 +195,7 @@
 
     <listitem>
       <para>
-        Let t be the independent variable, <math xmlns='http://www.w3.org/1998/Math/MathML' display='inline'><msub><mi>v</mi> <mi>i</mi></msub></math> be the ith variable, and <math xmlns='http://www.w3.org/1998/Math/MathML' display='inline'><mi>S</mi><mo>=</mo><mrow><msub><mi>v</mi> <mn>1</mn></msub><mo>,</mo><mfrac><mrow><msub><mi>dv</mi> <mn>1</mn></msub></mrow><mi>dt</mi></mfrac><mo>,</mo><mfrac><mrow><msup><mi>d</mi> <mn>2</mn></msup><msub><mi>v</mi> <mn>1</mn></msub></mrow><mrow><msup><mi>dt</mi> <mn>2</mn></msup></mrow></mfrac><mo>,</mo><mo>.</mo><mo>.</mo><mo>.</mo><mo>,</mo><mfrac><mrow><msup><mi>d</mi> <mrow><msub><mi>k</mi> <mn>1</mn></msub></mrow></msup><msub><mi>v</mi> <mn>1</mn></msub></mrow><mrow><msup><mi>dt</mi> <mrow><msub><mi>k</mi> <mn>1</mn></msub></mrow></msup></mrow></mfrac><mo>,</mo><mo>.</mo><mo>.</mo><mo>.</mo><mo>,</mo><msub><mi>v</mi> <mi>n</mi></msub><mo>,</mo><mfrac><mrow><msub><mi>dv</mi> <mi>n</mi></msub></mrow><mi>dt</mi></mfrac><mo>,</mo><mo>.</mo><mo>.</mo><mo>.</mo><mo>,</mo><mfrac><mrow><msup><mi>d</mi> <mrow><msub><mi>k</mi> <mi>n</mi></msub></mrow></msup><msub><mi>v</mi> <mi>n</mi></msub></mrow><mrow><msup><mi>dt</mi> <mrow><msub><mi>k</mi> <mi>n</mi></msub></mrow></msup></mrow></mfrac></mrow></math>. There MUST NOT be any subset of the real constraint equations, of size greater than some i, but which collectively only involve i members of S.
+        Let t be the independent variable, <math xmlns='http://www.w3.org/1998/Math/MathML' display='inline'><msub><mi>v</mi> <mi>i</mi></msub></math> be the ith variable, and <math xmlns='http://www.w3.org/1998/Math/MathML' display='inline'><mi>S</mi><mo>=</mo><mo stretchy="false">{</mo><msub><mi>v</mi> <mn>1</mn></msub><mo>,</mo><mfrac><mrow><msub><mi>dv</mi> <mn>1</mn></msub></mrow><mi>dt</mi></mfrac><mo>,</mo><mfrac><mrow><msup><mi>d</mi> <mn>2</mn></msup><msub><mi>v</mi> <mn>1</mn></msub></mrow><mrow><msup><mi>dt</mi> <mn>2</mn></msup></mrow></mfrac><mo>,</mo><mo>.</mo><mo>.</mo><mo>.</mo><mo>,</mo><mfrac><mrow><msup><mi>d</mi> <mrow><msub><mi>k</mi> <mn>1</mn></msub></mrow></msup><msub><mi>v</mi> <mn>1</mn></msub></mrow><mrow><msup><mi>dt</mi> <mrow><msub><mi>k</mi> <mn>1</mn></msub></mrow></msup></mrow></mfrac><mo>,</mo><mo>.</mo><mo>.</mo><mo>.</mo><mo>,</mo><msub><mi>v</mi> <mi>n</mi></msub><mo>,</mo><mfrac><mrow><msub><mi>dv</mi> <mi>n</mi></msub></mrow><mi>dt</mi></mfrac><mo>,</mo><mo>.</mo><mo>.</mo><mo>.</mo><mo>,</mo><mfrac><mrow><msup><mi>d</mi> <mrow><msub><mi>k</mi> <mi>n</mi></msub></mrow></msup><msub><mi>v</mi> <mi>n</mi></msub></mrow><mrow><msup><mi>dt</mi> <mrow><msub><mi>k</mi> <mi>n</mi></msub></mrow></msup></mrow></mfrac><mo stretchy="false">}</mo></math>. There MUST NOT be any subset of the real constraint equations, of size greater than some i, but which collectively only involve i members of S (not counting references to members of S that occur inside infinitesimally delayed expressions)).
       </para>
     </listitem>
 
