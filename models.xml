@@ -1,11 +1,30 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE article SYSTEM "-//OASIS//DTD DocBook XML">
 <section lang="en">
+  <title>CellML Secondary Specification - DAEs with Optional Resets</title>
+
+<section>
+  <title>Preliminary matters</title>
+  <orderedlist>
+    <listitem>
+      <para>
+        This specification is a secondary specification to the CellML 1.2 Specification, and so should be read together with the CellML 1.2 specification. It acts to further narrow the CellML 1.2 specification. Models and software implementations must comply with the CellML 1.2 specification to comply with this specification.
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        The rules provided in this specification are against the MathML 3 Strict form; the rules in this document apply to content MathML after all possible transformations to strict MathML defined in the MathML 3 specification have been applied.
+      </para>
+    </listitem>
+  </orderedlist>
+</section>
+
+<section>
   <title>Requirements for compliant models</title>
   <orderedlist>
     <listitem>
       <para>
-        Compliant models MUST NOT contain any variables, constants, or expressions unless the type is either real or boolean.
+        Compliant models MUST NOT contain any variables, constants, or expressions unless the type is either real or boolean, except where explicitly stated otherwise in this specification.
       </para>
     </listitem>
     <listitem>
@@ -23,107 +42,280 @@
         Every child of a math element information item in the MathML namespace must comply with one of following rules:
         <orderedlist>
           <listitem>
-            <para>The rules described in section ref for equalities</para>
+            <para>The child of the MathML math element information item is an apply element information item, and the first MathML element information item child of that apply element is a symbol from the relation1 content dictionary.</para>
           </listitem>
           <listitem>
-            <para>The rules described in section ref for toplevel piecewise statements</para>
+            <para>The rules described in <link linkend="toplevel-piecewise-rules"/> where a child of the MathML math element is an apply element information item, and the first MathML element information child of that apply element is the piecewise symbol from the piece1 content dictionary.</para>
           </listitem>
         </orderedlist>
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        All csymbol elements in the model must either have a definitionURL attribute with value
+        "http://www.cellml.org/cellml/1.2#evaluatedAt", or have a cd attribute and text child
+        value matching a symbol on either the Generally Available List given in
+        <link linkend="generalList"/> or the Specific Uses list given in
+        <link linkend="specificList"/>. In this section, rules about the type of the result of an application
+        also apply to type of a symbol that takes no arguments.
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        Symbols defined in <link linkend="generalList"/> MAY be used anywhere where the use is not inconsistent with other rules in this specification or the primary specification.
+      </para>
+      <para>
+        Symbols defined in <link linkend="specificList"/> MUST NOT be used anywhere except where specifically allowed in this specification.
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        Where an OpenMath symbol takes an argument of STS type Boolean, the CellML type of that argument MUST be boolean.
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        Where the application of an OpenMath symbol produces a result of STS type Boolean, the CellML type of that result SHALL be boolean.
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        Where an OpenMath symbol takes an argument of an STS type given in <link linkend="realequiv"/>, the CellML type of that argument SHALL be real.
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        Where the application of an OpenMath symbol produces a result of an STS type given in <link linkend="realequiv"/>, the CellML type of that result SHALL be real.
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        The piece symbol in content dictionary piece1 shall produce a result of type piece-real if given a first argument of type real, and a result of type piece-boolean if given a first argument of type boolean.
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        The otherwise symbol in content dictionary piece1 shall produce a result of type piece-real if given an argument of type real, and a result of type piece-boolean if given an argument of type boolean.
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        The types piece-bool and piece-real MUST NOT be used anywhere in the model (not as a variable type, a constant type, or as the inferred type of expressions) except where explicitly allowed in this specification.
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        All arguments to an application of the piecewise symbol in content dictionary piece1 MUST be of the same type, and that type must be either piece-real or piece-boolean. Where the type is piece-real, the result of the application SHALL be of type real. Where the type is piece-boolean, the result of the application SHALL be of type boolean.
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        Both arguments to an application of the eq or neq symbol in the relation1 content dictionary SHALL be of the same type.
       </para>
     </listitem>
 
     <listitem>
       <para>
-        Every MathML element child of a MathML math element child of a component element MUST be in one of the following forms:
-        <orderedlist>
-          <listitem><para>A MathML apply element with three arguments, with the first argument being a MathML `or' element, the second being a boolean expression (as defined below), and the third being a valid equation (as defined below), or,</para></listitem>
-          <listitem><para>A valid equation (as defined below).</para></listitem>
-        </orderedlist>
+        Let n be the number of variables of type real in the model. For a model to be valid under this secondary specification, it MUST be possible to divide up the variables of type real into one independent variable and <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>n</mml:mi><mml:mo>-</mml:mo><mml:mn>1</mml:mn></mml:mrow></mml:math> dependent variables. There must be precisely <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>n</mml:mi><mml:mo>-</mml:mo><mml:mn>1</mml:mn></mml:mrow></mml:math> real constraint equations (as defined in section <link linkend="real-constriant-equations"/> that do not contain initial value expressions (as defined later in this section).
       </para>
     </listitem>
     <listitem>
       <para>
-        A valid equation is defined as a MathML apply element with three children, where the first MathML argument is a MathML `eq' element, and either:
-        <orderedlist>
-          <listitem><para>the second and third arguments are both valid real expressions, as defined below, or,</para></listitem>
-          <listitem><para>the second and third arguments are both valid boolean expressions, as defined below.</para></listitem>
-        </orderedlist>
+        There MUST NOT be any subset of the real constraint equations that do not contain initial value expressions of size greater than some i but which collectively only involve i real variables.
       </para>
     </listitem>
     <listitem>
       <para>
-        A valid real expression is defined as any expression that meets at least one of the following criteria:
-        <orderedlist>
-          <listitem><para>a MathML ci element referencing a variable of type real in the same component, or,</para></listitem>
-          <listitem><para>a MathML cn element, with the type attribute either absent or taking one of the following values: "e-notation", "integer", "rational" or "real", or,</para></listitem>
-          <listitem><para>a MathML piecewise element; one or more case element children can be present; each case element MUST contain a valid real expression child followed by a valid boolean expression child; each boolean expression MUST be mutually exclusive; an otherwise element MAY be present; if present, the otherwise element MUST contain a valid real expression, or,</para></listitem>
-          <listitem><para>a MathML exponentiale element, or,</para></listitem>
-          <listitem><para>a MathML pi element, or,</para></listitem>
-          <listitem><para>a MathML eulergamma element, or,</para></listitem>
-          <listitem><para>a MathML apply element meeting one of the following constraints, with no qualifier children except where explicitly allowed:
-            <orderedlist>
-              <listitem><para>The apply element has three arguments; the first is the MathML quotient element, and the next two are valid real expressions; the third argument is always non-zero, or,</para></listitem>
-              <listitem><para>The apply element has two arguments; the first is the MathML factorial element, and the last is a valid real expression, or,</para></listitem>
-              <listitem><para>The apply element has three arguments; the first is the MathML divide element, and the next two are valid real expressions; the third argument is always non-zero, or,</para></listitem>
-              <listitem><para>The apply element has three or more arguments; the first is the MathML max element or the MathML min element, and the remaining arguments are valid real expressions, or,</para></listitem>
-              <listitem><para>The apply element has three arguments; the first is the MathML minus element, and the remaining two arguments are valid real expressions, or,</para></listitem>
-              <listitem><para>The apply element has three or more arguments; the first is the MathML plus element, and the remaining arguments are valid real expressions, or,</para></listitem>
-              <listitem><para>The apply element has three arguments; the first is the MathML power element, and the remaining arguments are valid real expressions; the expression must be defined so that if the second argument has a negative value, the third argument shall have a value that is an integer, or,</para></listitem>
-              <listitem><para>The apply element has three arguments; the first is the MathML rem element, and the next two are valid real expressions; the third argument is always non-zero, or,</para></listitem>
-              <listitem><para>The apply element has three or more arguments; the first is the MathML times element, and the remaining arguments are valid real expressions, or,</para></listitem>
-              <listitem><para>The apply element has two arguments; the first is the MathML root element, and the last argument is a valid real expression; a degree qualifier containing a valid real expression MAY be present, or MAY be absent, relying on the MathML default of 2; the expression in the argument MUST be always non-zero, or,</para></listitem>
-              <listitem><para>The apply element has three or more arguments; the first is the MathML gcd element or the MathML lcm element, and the remaining arguments are valid real expressions; all of the real expression arguments MUST evaluate to integers, or,</para></listitem>
-              <listitem><para>The apply element has two arguments; the first is the MathML abs element or the MathML floor element or the MathML ceiling element, and the last argument is a valid real expression, or,</para></listitem>
-              <listitem><para>TODO: sort out locally bound variables first. The apply element has two arguments; the first is the MathML int element, and the last argument is a valid real expression, or,</para></listitem>
-              <listitem><para>The apply element has two arguments; the last is a valid real expression, and the first argument is one of the following:
-                <orderedlist>
-                  <listitem><para>A MathML sin element, or,</para></listitem>
-                  <listitem><para>A MathML cos element, or,</para></listitem>
-                  <listitem><para>A MathML tan element; the value of the real expression must never be an odd multiple of pi/2, or,</para></listitem>
-                  <listitem><para>A MathML sec element; the value of the real expression must never be an odd multiple of pi/2, or,</para></listitem>
-                  <listitem><para>A MathML csc element; the value of the real expression must never be a multiple of pi, or,</para></listitem>
-                  <listitem><para>A MathML cot element; the value of the real expression must never be a multiple of pi, or,</para></listitem>
-                  <listitem><para>A MathML sinh element, or,</para></listitem>
-                  <listitem><para>A MathML cosh element, or,</para></listitem>
-                  <listitem><para>A MathML tanh element, or,</para></listitem>
-                  <listitem><para>A MathML sech element, or,</para></listitem>
-                  <listitem><para>A MathML csch element; the value of the real expression must never be zero, or,</para></listitem>
-                  <listitem><para>A MathML tanh element; the value of the real expression must never be zero, or,</para></listitem>
-                  <listitem><para>A MathML arcsin element; the value of the real expression must always be in the interval [-1,1], or,</para></listitem>
-                  <listitem><para>A MathML arccos element; the value of the real expression must always be in the interval [-1,1], or,</para></listitem>
-                  <listitem><para>A MathML arctan element, or,</para></listitem>
-                  <listitem><para>A MathML arcsec element; the value of the real expression must never be in the interval (-1,1) and must never be zero, or,</para></listitem>
-                  <listitem><para>A MathML arccsc element; the value of the real expression must never be in the interval (-1,1) and must never be zero, or,</para></listitem>
-                  <listitem><para>A MathML arccot element; the value of the real expression must always be in the interval (-1,1) and must never be zero, or,</para></listitem>
-                  <listitem><para>A MathML arcsinh element; the value of the real expression must never be zero, or,</para></listitem>
-                  <listitem><para>A MathML arccosh element; the value of the real expression must always be greater than zero, or,</para></listitem>
-                  <listitem><para>A MathML arctanh element; the value of the real expression must always be in the interval (-1,1), or,</para></listitem>
-                  <listitem><para>A MathML arcsech element; the value of the real expression must always be greater than or equal to one, or,</para></listitem>
-                  <listitem><para>A MathML arccsch element; the value of the real expression must never be zero, or,</para></listitem>
-                  <listitem><para>A MathML arccoth element; the value of the real expression must never be in [-1,1], or,</para></listitem>
-                  <listitem><para>A MathML log element; the value of the real expression must always be non-zero; a logBase qualifier containing a real expression MAY optionally be present, or,</para></listitem>
-                  <listitem><para>A MathML ln element; the value of the real expression must always be non-zero, or,</para></listitem>
-                  <listitem><para>A MathML exp element.</para></listitem>
-                </orderedlist>
-              </para></listitem>
-            </orderedlist>
-          </para></listitem>
-        </orderedlist>
+        Application of the oriented_interval symbol in content dictionary interval1 MUST take two real arguments, and SHALL produce a value of type oriented-real-interval. The type oriented-real-interval MUST NOT be used anywhere in the model (not as a variable type, a constant type, or as the inferred type of expressions) except where specifically allowed in this specification.
+      </para>
+    </listitem>
+
+    <listitem>
+      <para>
+        Binding to the lambda symbol in content dictionary fns1 MUST be over an expression of type real, the bound variable introduced SHALL be of type real, and the binding SHALL produce a value of type real-real-lambda. The type real-real-lambda MUST NOT be used anywhere in the model (not as a variable type, a constant type, or as the inferred type of expressions) except where specifically allowed in this specification.
+      </para>
+    </listitem>
+
+    <listitem>
+      <para>
+        The defint symbol in content dictionary calculus1 MAY be applied to a first argument of type oriented-real-interval, and a second argument of type real-real-lambda.
+      </para>
+    </listitem>
+
+    <listitem>
+      <para>
+        The diff symbol in content dictionary calculus1 MAY be applied to a first argument of type real-real-lambda, giving a value of type real-real-lambda-applyonly.
+      </para>
+    </listitem>
+
+    <listitem>
+      <para>
+        The nthdiff symbol in content dictionary calculus1 MAY be applied to a first argument of type real, and a second argument of type real-real-lambda, giving a value of type real-real-lambda-applyonly. The first argument MUST be defined using the Low Complexity Subset defined in <link linkend="low-complexity-subset"/>, and MUST have a value that is a positive integer.
+      </para>
+    </listitem>
+
+    <listitem>
+      <para>
+        Values of type real-real-lambda-applyonly MUST NOT be used anywhere in the model (not as a variable type, a constant type, or as the inferred type of expressions) except where specifically allowed in this specification.
+      </para>
+    </listitem>
+
+    <listitem>
+      <para>
+        Values of type real-real-lambda-applyonly MUST only occur as the operator to a MathML apply expression, and the second argument MUST be a ci reference to the independent variable.
+      </para>
+    </listitem>
+
+    <listitem>
+      <para>
+        The evaluatedAt symbol MUST NOT be used, except as explicitly allowed in this specification.
+      </para>
+    </listitem>
+
+    <listitem>
+      <para>
+        The evaluatedAt operator MAY be used in an arbitrary number of expressions where the first argument is a reference to the independent variable, the second argument is a low complexity subset expression, and the third argument is a dependent variable, or an application of the diff or nthdiff symbol to a dependent variable. The second argument MUST evaluate to the same value each time this rule is relied upon. The term initial value expression SHALL refer to this form of expression.
       </para>
     </listitem>
     <listitem>
       <para>
-        A valid boolean expression is defined as any expression that meets at least one of the following criteria:
+        The evaluatedAt operator MAY be applied as the child of a lambda element, where the first argument of the evaluatedAt operator is the independent variable, and the second is an application of the plus operator from arith1 with the first argument to plus being the independent variable, and the second being bound variable of the lambda element; however, the lambda application MUST be the third argument of a limit operator from limit1, with the first argument to the limit being a constant zero, and the second argument being the symbol below from limit1.
+      </para>
+    </listitem>
+
+    <listitem>
+      <para>
+        An equation containing initial value expression MUST NOT involve the diff or nthdiff symbols from the calculus1 content dictionary other than within initial value expressions.
+      </para>
+    </listitem>
+
+    <listitem>
+      <para>
+        Where an initial value expression is used in a model, the model MUST also contain a top-level equation or top-level piecewise expression that involves the dependent variable or derivative (as the case may be) from the initial value expression, or which involves the first derivative of that dependent variable or derivative, but which does not contain any initial value expressions. Note: to avoid doubt, for the purposes of this rule, an initial value expression which involves the derivative of a dependent variable SHALL be taken to involve the derivative but to not involve the dependent variable.
+      </para>
+    </listitem>
+
+    <listitem>
+      <para>
+        
+      </para>
+    </listitem>
+  </orderedlist>
+</section>
+
+<section id="real-constriant-equations">
+  <title>Meaning of real constraint equations</title>
+  <para>
+    A top-level equality SHALL be real constraint equation if the two parts being equated are of type real.
+  </para>
+  <para>
+    A top-level piecewise SHALL be a real constraint equation.
+  </para>
+  <para>
+    No other expressions in the model SHALL be considered real constraint equations.
+  </para>
+</section>
+
+<section id="realequiv">
+  <title>OpenMath STS types equivalent to CellML type real</title>
+  <orderedlist>
+    <listitem>
+      <para>
+        For the purposes of this secondary specification, the following OpenMath STS types SHALL correspond to the CellML type real:
         <orderedlist>
-          <listitem><para>a MathML ci element referencing a variable of type boolean in the same component, or,</para></listitem>
-          <listitem><para>a MathML true element or a MathML false element, or,</para></listitem>
-          <listitem><para>a MathML apply element meeting one of the following constraints, with no qualifier children except where explicitly allowed:
-            <orderedlist>
-              <listitem><para>The apply element has three or more arguments; the </para></listitem>
-            </orderedlist>
-          </para></listitem>
+          <listitem><para>OrderedSet</para></listitem>
+          <listitem><para>NumericalValue in the sts content dictionary</para></listitem>
+          <listitem><para>SemiGroup</para></listitem>
+          <listitem><para>AbelianSemiGroup</para></listitem>
+          <listitem><para>AbelianGroup</para></listitem>
+          <listitem><para>PositiveInteger</para></listitem>
+          <listitem><para>C in the setname1 content dictionary</para></listitem>
+          <listitem><para>R in the setname1 content dictionary</para></listitem>
+          <listitem><para>Z in the setname1 content dictionary</para></listitem>
+          <listitem><para>N in the setname1 content dictionary</para></listitem>
         </orderedlist>
       </para>
     </listitem>
   </orderedlist>
+</section>
+
+<section id="low-complexity-subset">
+  <title>Rules for low complexity subset expressions</title>
+  <para>
+    The following rules apply only to expressions that are required to be expressed in the low complexity subset:
+    <orderedlist>
+      <listitem>
+        <para>
+          Variables MUST NOT be referenced within a low complexity subset expression unless there is a top-level eq operator in the model equating that variable to a low complexity subset expression.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          A low complexity subset expression which does not refer to any variables SHALL be defined to be a level 0 low complexity subset expression.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          It MUST be possible to assign each low complexity subset expression a non-negative level i such that every low complexity subset expression only refers to variables that have been equated to a low complexity subset expression of a lower level.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Symbols from the calculus1 content dictionary MUST NOT be used within a low complexity subset expression.
+        </para>
+      </listitem>
+    </orderedlist>
+</section>
+
+<section id="toplevel-piecewise-rules">
+  <title>Rules for top-level piecewise expressions</title>
+  <listitem>
+    <para>
+      Each top-level piecewise expression MUST have exactly two piece-boolean arguments.
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      Within the rules in this section, the value of a piece SHALL mean the only argument of an application of otherwise from the piece1 content dictionary, and the first argument of an application of piece from the piece1 content dictionary.
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      The value of each piece MUST consist of an application of the eq symbol from content dictionary relation1.
+    </para>
+  </listitem>
+  <listitem>
+    <para>
+      One piece MUST contain one or more instances of a derivative of exactly one dependent variable, such that the derivative (or any derivative of the same variable to a higher degree) does not appear anywhere else in the model (other than as a descendant of an evaluatedAt application), and the derivative to one degree less (the dependent variable itself in the case of first-order differentiation) appears in the other piece.
+    </para>
+  </listitem>
+</section>
+
+<section id="generalList">
+  <title>Generally Available List</title>
+  <para>
+    The Generally Available List of symbols is enumerated below, by naming the content dictionary, and then specifying which of symbols in the content dictionary that are on the Generally Available List:
+    <orderedlist>
+      <listitem><para>logic1 - all symbols in the logic1 content dictionary</para></listitem>
+      <listitem><para>piece1 - all symbols in the piece1 content dictionary</para></listitem>
+      <listitem><para>relation1 - all symbols in the relation1 content dictionary except approx</para></listitem>
+      <listitem><para>arith1 - all symbols in the arith1 content dictionary except product or sum</para></listitem>
+      <listitem><para>transc1 - all symbols in the transc1 content dictionary</para></listitem>
+      <listitem><para>rounding1 - all symbols in the rounding1 content dictionary</para></listitem>
+      <listitem><para>nums1 - the symbols e, gamma, and pi in the nums1 content dictionary</para></listitem>
+      <listitem><para>integer1 - all symbols in the integer1 content dictionary</para></listitem>
+    </orderedlist>
+  </para>
+</section>
+
+<section id="specificList">
+<title>Specific Uses List</title>
+The Specific Uses List of symbols is enumerated below, by naming the content dictionary, and then specifying which of symbols in the content dictionary that are on the Specific Uses List:
+        <orderedlist>
+          <listitem><para>limit1 - the symbols limit and below</para></listitem>
+          <listitem><para>calculus1 - the symbols defint, diff, and nthdiff</para></listitem>
+          <listitem><para>interval1 - the symbol oriented_interval</para></listitem>
+          <listitem><para>fns1 - the symbol lambda</para></listitem>
+        </orderedlist>
+</section>
 </section>
