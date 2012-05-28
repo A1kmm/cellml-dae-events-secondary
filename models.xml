@@ -114,7 +114,7 @@
 
     <listitem>
       <para>
-        Let n be the number of variables of type real in the model. For a model to be valid under this secondary specification, it MUST be possible to divide up the variables of type real into one independent variable and <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>n</mml:mi><mml:mo>-</mml:mo><mml:mn>1</mml:mn></mml:mrow></mml:math> dependent variables. There must be precisely <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>n</mml:mi><mml:mo>-</mml:mo><mml:mn>1</mml:mn></mml:mrow></mml:math> real constraint equations (as defined in section <xref linkend="real-constriant-equations"/> that do not contain initial value expressions (as defined later in this section).
+        Let n be the number of variables of type real in the model. For a model to be valid under this secondary specification, it MUST be possible to divide up the variables of type real into one independent variable and <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>n</mml:mi><mml:mo>-</mml:mo><mml:mn>1</mml:mn></mml:mrow></mml:math> dependent variables. There must be precisely <mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>n</mml:mi><mml:mo>-</mml:mo><mml:mn>1</mml:mn></mml:mrow></mml:math> real constraint equations (as defined in section <xref linkend="real-constraint-equations"/> that do not contain initial value expressions (as defined later in this section).
       </para>
     </listitem>
     <listitem>
@@ -213,7 +213,7 @@
   </orderedlist>
 </section>
 
-<section id="real-constriant-equations">
+<section id="real-constraint-equations">
   <title>Meaning of real constraint equations</title>
   <para>
     A top-level equality SHALL be real constraint equation if the two parts being equated are of type real.
