@@ -50,8 +50,7 @@
     </listitem>
     <listitem>
       <para>
-        All csymbol elements in the model must either have a definitionURL attribute with value
-        "http://www.cellml.org/cellml/1.2#evaluatedAt", or have a cd attribute and text child
+        All csymbol elements in the model must have a cd attribute and text child
         value matching a symbol on either the Generally Available List given in
         <xref linkend="generalList"/> or the Specific Uses list given in
         <xref linkend="specificList"/>. In this section, rules about the type of the result of an application
@@ -160,7 +159,7 @@
 
     <listitem>
       <para>
-        The evaluatedAt symbol MUST NOT be used, except as explicitly allowed in this specification.
+        The evaluatedAt symbol in the content dictionary cellml1 MUST NOT be used, except as explicitly allowed in this specification.
       </para>
     </listitem>
 
@@ -176,7 +175,7 @@
   <cn>0</cn><csymbol cd="limit1">below</csymbol>
   <apply><csymbol cd="lambda1">lambda</csymbol>
     <bvar><ci>x</ci></bvar>
-    <apply><csymbol cd="cellml12">evaluatedAt</csymbol>
+    <apply><csymbol cd="cellml1">evaluatedAt</csymbol>
       <ci>time</ci>
       <apply><csymbol cd="arith1">plus</csymbol>
         <ci>time</ci>
@@ -347,6 +346,7 @@
   <para>
     The Specific Uses List of symbols is enumerated below, by naming the content dictionary, and then specifying which of symbols in the content dictionary that are on the Specific Uses List:
     <orderedlist>
+      <listitem><para>cellml1 - the symbol evaluatedAt</para></listitem>
       <listitem><para>limit1 - the symbols limit and below</para></listitem>
       <listitem><para>calculus1 - the symbols defint, diff, and nthdiff</para></listitem>
       <listitem><para>interval1 - the symbol oriented_interval</para></listitem>
