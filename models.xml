@@ -171,7 +171,23 @@
     </listitem>
     <listitem>
       <para>
-        The evaluatedAt operator MAY be applied as the child of a lambda element, where the first argument of the evaluatedAt operator is the independent variable, and the second is an application of the plus operator from arith1 with the first argument to plus being the independent variable, and the second being bound variable of the lambda element; however, the lambda application MUST be the third argument of a limit operator from limit1, with the first argument to the limit being a constant zero, and the second argument being the symbol below from limit1. Such expressions SHALL be referred to as infinitesimally delayed expressions within this specification.
+<!--
+<apply><csymbol cd="limit1">limit</csymbol>
+  <cn>0</cn><csymbol cd="limit1">below</csymbol>
+  <apply><csymbol cd="lambda1">lambda</csymbol>
+    <bvar><ci>x</ci></bvar>
+    <apply><csymbol cd="cellml12">evaluatedAt</csymbol>
+      <ci>time</ci>
+      <apply><csymbol cd="arith1">plus</csymbol>
+        <ci>time</ci>
+        <ci>x</ci>
+      </apply>
+      <ci>myvar</ci>
+    </apply>
+  </apply>
+</apply>
+  -->
+        The evaluatedAt operator MAY be applied as the first argument of an application of the lambda symbol in content dictionary lambda1, where the first argument of the evaluatedAt operator is the independent variable, and the second is an application of the plus operator from arith1 with the first argument to plus being the independent variable, and the second being bound variable of the lambda application. The lambda application MUST be the third argument of an application of the limit operator from limit1, with the first argument to the limit being a constant zero, and the second argument being the symbol below from limit1. Such expressions SHALL be referred to as infinitesimally delayed expressions within this specification.
       </para>
     </listitem>
 
